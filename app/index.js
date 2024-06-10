@@ -1,18 +1,14 @@
-const express = require('express');
-const http = require('http');
-const { port } = require('../config');
+const { server } = require('./server');
+const socketIO = require('socket.io');
 
-const app = express();
 
-const server = http.createServer(app);
-const io = require('socket.io')(server);
+const { port } = require('./config/config');
 
-(async function () {
-  server.listen(port, () => {
-    try {
-      console.log(`Server listening on port ${port}`);
-    } catch (err) {
-      console.log(err);
-    }
-  });
-})();
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
+
+// Обработка ошибок сервера
+server.on('error', (err) => {
+  console.error('Server error:', err);
+});
