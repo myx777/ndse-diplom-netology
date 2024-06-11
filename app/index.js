@@ -1,7 +1,6 @@
 const { server } = require('./server');
 const socketIO = require('socket.io');
 
-
 const { port } = require('./config/config');
 
 server.listen(port, () => {
