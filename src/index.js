@@ -3,8 +3,10 @@ const socketIO = require('socket.io');
 
 const { port } = require('./config/config');
 
-server.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+
+const PORT = port || 3000;
+server.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
 
 // Обработка ошибок сервера

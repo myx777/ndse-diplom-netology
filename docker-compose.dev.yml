@@ -1,0 +1,36 @@
+name: test # добавил имя
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./deliveryData/mongo_db:/data/db # папка для хранения БД на диске
+      - ./mongoInit/init.js:/docker-entrypoint-initdb.d/init.js # подключаю инициирующий скрипт
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_URL: mongodb://root:root@mongo:27017/
+      ME_CONFIG_BASICAUTH: false
+
+  delivery:
+    build: .
+    environment:
+      - MONGO_URL=mongodb://delivery:123456@mongo:27017/delivery
+    volumes:
+      - ./deliveryData/loaded
+    depends_on:
+      - mongo
+    ports:
+      - 80:3000
+
+# чтобы работал инициирующий скрипт не должно быть сохраненной БД на диске (локально)
