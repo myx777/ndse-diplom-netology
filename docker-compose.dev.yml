@@ -27,7 +27,7 @@ services:
     environment:
       - MONGO_URL=mongodb://delivery:123456@mongo:27017/delivery
     volumes:
-      - ./deliveryData/loaded
+      - ./deliveryData/loaded:/app/loaded
     depends_on:
       - mongo
     ports:

@@ -10,8 +10,11 @@ RUN npm install
 # Копирование кода приложения
 COPY ./src ./src
 
-# Создание точки монтирования для директории upload
-VOLUME ["upload"]
+# Создание точки монтирования
+VOLUME ["/app/loaded"]
+
+# сщздание папки
+RUN mkdir -p /app/loaded
 
 # Запуск приложения
 CMD ["npm", "run", "dev"]
