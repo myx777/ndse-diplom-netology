@@ -8,5 +8,18 @@ out
 gen
 
 
-node_modules
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
 .env
+
+# MongoDB
+deliveryData/mongo_db/
+
+# Operating system files
+.DS_Store
+Thumbs.db
