@@ -1,6 +1,7 @@
 const express = require('express');
 const http = require('http');
 const userRoutes = require('./routes/userRoutes');
+const advertisementRoutes = require('./routes/advertisementRoutes');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -22,5 +23,6 @@ app.use(express.json());
 
 // Роуты
 app.use('/users', userRoutes);
+app.use('/advertisements', advertisementRoutes);
 
 module.exports = { app, server };

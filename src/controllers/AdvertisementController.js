@@ -4,6 +4,7 @@ const AdvertisementService = require('../services/AdvertisementService');
 class AdvertisementController {
   // создание объявления из тела запроса
   async createAdvertisement(req, res) {
+    console.log(req)
     try {
       const advertisement = await AdvertisementService.create(req.body);
       res.status(201).send(advertisement);
@@ -24,6 +25,7 @@ class AdvertisementController {
 
   // "псевдо" удаление объявления
   async removeById(req, res) {
+    console.log(req.params.id)
     try {
       const advertisementRemoved = await AdvertisementService.remove(
         req.params.id,

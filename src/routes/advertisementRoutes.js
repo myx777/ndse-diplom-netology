@@ -1,14 +1,17 @@
-const AdvertisementController = require('../controllers/advertisementController');
+const AdvertisementController = require('../controllers/AdvertisementController');
 const router = require('express').Router();
 
-router.post('/advertisements/create', async (req, res) =>
+// создание объявлений, принимает все нелбходимые поля по Sсhema
+router.post('/create', async (req, res) =>
   AdvertisementController.createAdvertisement(req, res),
 );
-
-router.get('/advertisements/find', async (req, res) =>
+// поиск объявлений
+router.get('/find', async (req, res) =>
   AdvertisementController.findAdvertisement(req, res),
 );
-
-router.delete('/advertisements/remove/:id', async (req, res) =>
+// псевдо-удаление объявлений (выставляет флаг isDelete в true)
+router.delete('/remove/:id', async (req, res) =>
   AdvertisementController.removeById(req, res),
 );
+
+module.exports = router;

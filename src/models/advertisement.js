@@ -1,3 +1,4 @@
+// Schema для объявлений
 const { Schema, model } = require('mongoose');
 const updateTimestamps = require('../middleware/updateTimestamps');
 
