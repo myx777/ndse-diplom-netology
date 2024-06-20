@@ -63,7 +63,7 @@ class AdvertisementService {
     try {
       if (
         id &&
-        (typeof id === 'string' || id instanceof mongoose.Schema.Types.ObjectId)
+        (typeof id === 'string' || mongoose.Types.ObjectId.isValid(id))
       ) {
         return await Advertisement.findByIdAndUpdate(id, {
           isDeleted: true,
