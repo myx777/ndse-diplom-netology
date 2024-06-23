@@ -9,12 +9,14 @@ RUN npm install
 
 # Копирование кода приложения
 COPY ./src ./src
+COPY .env .env
+COPY nodemon.json nodemon.json
 
 # Создание точки монтирования
-VOLUME ["/app/loaded"]
+#VOLUME ["/app/loaded"]
 
-# сщздание папки
-RUN mkdir -p /app/loaded
+# сoздание папки
+#RUN mkdir -p /app/loaded
 
 # Запуск приложения
 CMD ["npm", "run", "dev"]

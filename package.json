@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "dev": "nodemon -r dotenv/config src/index.js",
+    "dev": "nodemon -r dotenv/config --legacy-watch src/index.js",
     "start": "node src/index.js"
   },
   "repository": {

@@ -27,10 +27,11 @@ services:
     environment:
       - MONGO_URL=mongodb://delivery:123456@mongo:27017/delivery
     volumes:
+      - .:/app
       - ./deliveryData/loaded:/app/loaded
     depends_on:
       - mongo
     ports:
-      - 80:3000
+      - 80:3001
 
 # чтобы работал инициирующий скрипт не должно быть сохраненной БД на диске (локально)

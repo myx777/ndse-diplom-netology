@@ -3,7 +3,6 @@ const crypto = require('crypto');
 
 // хеширование пароля
 async function hashPassword(password) {
-  console.log(password);
   const salt = crypto.randomBytes(32).toString('hex');
   const hash = await new Promise((resolve, reject) => {
     crypto.pbkdf2(password, salt, 100000, 64, 'sha512', (err, derivedKey) => {

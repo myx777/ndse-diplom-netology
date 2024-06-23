@@ -1,8 +1,7 @@
-// конфиг для того, что бы сервер перезапускался с задержкой 2500
 {
-  "watch": ["./src"],
-  "ignore": ["deliveryData", "node_modules"],
+  "watch": ["."],
   "ext": "js,json",
+  "ignore": ["node_modules"],
   "exec": "node -r dotenv/config src/index.js",
-  "delay": "2500"
+  "legacy-watch": true
 }
