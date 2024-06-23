@@ -7,7 +7,8 @@ class UserService {
     try {
       const { salt, hash } = await hashPassword(data.password);
       const user = new User({ ...data, salt, passwordHash: hash });
-      return await user.save();
+      const userFound = await this.find(data.email);
+      return !userFound ? await user.save() : null;
     } catch (err) {
       throw new Error(`Ошибка создания нового пользователя: ${err.message}`);
     }
