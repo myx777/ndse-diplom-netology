@@ -16,7 +16,15 @@ class AdvertisementController {
   static async findAdvertisement(req, res) {
     try {
       const advertisementFound = await AdvertisementService.find(req.body);
-      res.status(200).send(advertisementFound);
+      if(advertisementFound.length === 0) {
+        res.status(200).send([{error: `Объявлений нет`}]);
+      } else {
+        res.status(200).send({
+          data: advertisementFound,
+          status: 'ok',
+        });
+      }
+
     } catch (err) {
       res.status(500).send(err);
     }
