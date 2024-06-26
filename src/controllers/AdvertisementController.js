@@ -3,7 +3,7 @@ const AdvertisementService = require('../services/AdvertisementService');
 
 class AdvertisementController {
   // создание объявления из тела запроса
-  async createAdvertisement(req, res) {
+  static async createAdvertisement(req, res) {
     console.log(req)
     try {
       const advertisement = await AdvertisementService.create(req.body);
@@ -14,7 +14,7 @@ class AdvertisementController {
   }
 
   // поиск объявления
-  async findAdvertisement(req, res) {
+  static async findAdvertisement(req, res) {
     try {
       const advertisementFound = await AdvertisementService.find(req.body);
       res.status(200).send(advertisementFound);
@@ -24,8 +24,7 @@ class AdvertisementController {
   }
 
   // "псевдо" удаление объявления
-  async removeById(req, res) {
-    console.log(req.params.id)
+  static async removeById(req, res) {
     try {
       const advertisementRemoved = await AdvertisementService.remove(
         req.params.id,
@@ -37,4 +36,4 @@ class AdvertisementController {
   }
 }
 
-module.exports = new AdvertisementController();
+module.exports = AdvertisementController;

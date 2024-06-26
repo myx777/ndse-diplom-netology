@@ -9,7 +9,7 @@ class AdvertisementService {
    * @param {Object} data - данные для создания объявления
    * @returns {Promise} - резолвится с объектом модели Advertisement
    */
-  async create(data) {
+  static async create(data) {
     try {
       const advertisement = new Advertisement(data);
       return await advertisement.save();
@@ -23,7 +23,7 @@ class AdvertisementService {
    * @param {Object} params - параметры поиска
    * @returns {Promise<Array>} - резолвится с массивом объектов модели Advertisement или пустым массивом
    */
-  async find(params) {
+  static async find(params) {
     if(!params) return null;
     try {
       const searchConditions = { isDeleted: false };
@@ -59,7 +59,7 @@ class AdvertisementService {
    * @param {string|ObjectId} id - ID объявления
    * @returns {Promise<Object|null>} - обновленный объект или null, если не найден
    */
-  async remove(id) {
+  static async remove(id) {
     try {
       if (
         id &&
@@ -77,4 +77,4 @@ class AdvertisementService {
   }
 }
 
-module.exports = new AdvertisementService();
+module.exports = AdvertisementService;

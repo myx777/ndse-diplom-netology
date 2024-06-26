@@ -1,10 +1,17 @@
-const UserController = require('../controllers/UserController');
+const UserController = require('../controllers/AuthController');
 const router = require('express').Router();
+const mustAuthenticatedMw = require('../middleware/mustAuthenticatedmw');
 
-// регистрация user
-router.post('/signup', (req, res) => UserController.createUser(req, res));
+// Регистрация пользователя
+router.post('/signup', (req, res, next) => UserController.register(req, res, next));
 
-// поиск user по email
-router.post('/search', (req, res) => UserController.findUserByEmail(req, res));
+// Аутентификация пользователя
+router.post('/signin', (req, res, next) => {
+  UserController.login(req, res, next);
+});
+
+// Применение mustAuthenticatedMw ко всем маршрутам, начинающимся с /private
+router.all('/private', mustAuthenticatedMw);
+router.all('/private/*', mustAuthenticatedMw);
 
 module.exports = router;
