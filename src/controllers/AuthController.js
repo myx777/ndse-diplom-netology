@@ -14,14 +14,19 @@ class AuthController {
   static async register(req, res, next) {
     try {
       const user = await UserService.registration(req.body);
-      let responseData;
+
       if (!user) {
-        responseData = {
+        return res.status(400).send({
           error: 'email занят',
           status: 'error',
-        };
-      } else {
-        responseData = {
+        });
+      }
+
+      // создаем нового пользователя и сразу логинемся
+      req.logIn(user, err => {
+        if (err) return next(err);
+
+        return res.status(200).send({
           data: {
             id: user.id,
             email: user.email,
@@ -29,9 +34,9 @@ class AuthController {
             contactPhone: user.contactPhone,
           },
           status: 'ok',
-        };
-      }
-      res.status(201).send(responseData);
+        })
+      })
+
     } catch (err) {
       res.status(500).send(err);
     }
@@ -56,7 +61,7 @@ class AuthController {
         if (err) {
           return next(err);
         }
-        return res.redirect('/private');
+        return res.redirect('/users/private');
       });
     })(req, res, next);
   }
