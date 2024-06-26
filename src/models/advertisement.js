@@ -1,4 +1,4 @@
-// Schema для объявлений
+// advertisementSchema.js
 const { Schema, model } = require('mongoose');
 const updateTimestamps = require('../middleware/updateTimestamps');
 
@@ -17,18 +17,6 @@ const advertisementSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true,
   },
-  meta: {
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      required: true,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-      required: true,
-    },
-  },
   tags: {
     type: [String],
   },
@@ -37,7 +25,10 @@ const advertisementSchema = new Schema({
     required: true,
     default: false,
   },
+}, {
+  timestamps: true // автоматом добавит «createAt» и «updatedAt»
 });
 
-advertisementSchema.pre('save', updateTimestamps); // мидделвар для сохранения | обновления этих метаданных
+advertisementSchema.pre('save', updateTimestamps); // Middleware for updating timestamps
+
 module.exports = model('Advertisement', advertisementSchema);
