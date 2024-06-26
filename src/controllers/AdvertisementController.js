@@ -4,7 +4,6 @@ const AdvertisementService = require('../services/AdvertisementService');
 class AdvertisementController {
   // создание объявления из тела запроса
   static async createAdvertisement(req, res) {
-    console.log(req)
     try {
       const advertisement = await AdvertisementService.create(req.body);
       res.status(201).send(advertisement);
@@ -30,6 +29,23 @@ class AdvertisementController {
         req.params.id,
       );
       res.status(200).send(advertisementRemoved);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+
+  // все объявления
+  static async getAllAdvertisements(req, res) {
+    try {
+      const allAdvertisements = await AdvertisementService.getAll();
+      if(allAdvertisements.length === 0) {
+        res.status(200).send([{error: `Объявлений нет`}]);
+      } else {
+        res.status(200).send({
+          data: allAdvertisements,
+          status: 'ok',
+        });
+      }
     } catch (err) {
       res.status(500).send(err);
     }

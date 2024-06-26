@@ -14,4 +14,9 @@ router.delete('/remove/:id', async (req, res) =>
   AdvertisementController.removeById(req, res),
 );
 
+// все объявления
+router.get('/', async (req, res) =>
+  AdvertisementController.getAllAdvertisements(req, res),
+);
+
 module.exports = router;

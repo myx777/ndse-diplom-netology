@@ -3,7 +3,6 @@ const Advertisement = require('../models/advertisement');
 const mongoose = require('mongoose');
 
 class AdvertisementService {
-
   /**
    * создание объявления в БД
    * @param {Object} data - данные для создания объявления
@@ -24,7 +23,7 @@ class AdvertisementService {
    * @returns {Promise<Array>} - резолвится с массивом объектов модели Advertisement или пустым массивом
    */
   static async find(params) {
-    if(!params) return null;
+    if (!params) return null;
     try {
       const searchConditions = { isDeleted: false };
 
@@ -69,10 +68,23 @@ class AdvertisementService {
           isDeleted: true,
         });
       } else {
-        throw new Error(`Неверный формат id: ${id}`)
+        throw new Error(`Неверный формат id: ${id}`);
       }
     } catch (err) {
       throw new Error(`Ошибка удаления объявления: ${err}`);
+    }
+  }
+
+  /**
+   *
+   * поиск всех объявлений
+   * @returns {Promise<Array|Error>} - резолвит массив
+   */
+  static async getAll() {
+    try {
+      return await Advertisement.find({}).select('-__v');
+    } catch (err) {
+      throw new Error(`Ошибка получения всех объявлений: ${err}`);
     }
   }
 }
