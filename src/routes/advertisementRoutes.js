@@ -9,7 +9,7 @@ router.post('/', mustAuthenticatedMw, fileMulter.array('Advertisement_imgs', 10)
 );
 
 // псевдо-удаление объявлений (выставляет флаг isDelete в true)
-router.delete('/remove/:id', mustAuthenticatedMw, async (req, res) =>
+router.delete('/:id', mustAuthenticatedMw, async (req, res) =>
     AdvertisementController.removeById(req, res),
 );
 

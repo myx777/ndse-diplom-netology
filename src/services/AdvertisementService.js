@@ -56,22 +56,28 @@ class AdvertisementService {
   /**
    * не удаляет, а ищет объявление в БД по ID и переводит флаг isDeleted в true
    * @param {string|ObjectId} id - ID объявления
-   * @returns {Promise<Object|null>} - обновленный объект или null, если не найден
+   * @param {string|ObjectId} user_Id - ID пользователя
+   * @returns {Promise<Object|null>} - обновленный объект или null, если не пользователь но не является автором объявления
    */
-  static async remove(id) {
+  static async remove(id, user_Id) {
     try {
-      if (
-        id &&
-        (typeof id === 'string' || mongoose.Types.ObjectId.isValid(id))
-      ) {
-        return await Advertisement.findByIdAndUpdate(id, {
-          isDeleted: true,
-        });
-      } else {
+      if (!id || !(typeof id === 'string' || mongoose.Types.ObjectId.isValid(id))) {
         throw new Error(`Неверный формат id: ${id}`);
       }
+
+      const findedAdvertisment = await Advertisement.findById(id).select('-__v');
+      if (!findedAdvertisment) {
+        throw new Error('Объявление не найдено');
+      }
+
+      if (!findedAdvertisment.userId.equals(user_Id)) {
+        return null;
+      }
+
+      await findedAdvertisment.updateOne({ isDeleted: true });
+      return findedAdvertisment;
     } catch (err) {
-      throw new Error(`Ошибка удаления объявления: ${err}`);
+      throw new Error(`Ошибка удаления объявления: ${err.message}`);
     }
   }
 

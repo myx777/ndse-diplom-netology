@@ -1,5 +1,7 @@
 // контроллер поиска, создания и "псевдо" удаления объявления из БД
 const AdvertisementService = require('../services/AdvertisementService');
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 
 class AdvertisementController {
   // создание объявления из тела запроса
@@ -62,12 +64,16 @@ class AdvertisementController {
   // "псевдо" удаление объявления
   static async removeById(req, res) {
     try {
-      const advertisementRemoved = await AdvertisementService.remove(
-        req.params.id,
-      );
-      res.status(200).send(advertisementRemoved);
+      const userId = new ObjectId(req.user.id);
+      const advertisementRemoved = await AdvertisementService.remove(req.params.id, userId);
+
+      if (!advertisementRemoved) {
+        return res.status(403).send({ error: 'Доступ запрещен: вы не являетесь автором объявления' });
+      }
+
+      res.status(200).send({ message: 'Объявление успешно удалено' });
     } catch (err) {
-      res.status(500).send(err);
+      res.status(500).send({ error: `Ошибка удаления объявления: ${err.message}` });
     }
   }
 
