@@ -4,7 +4,7 @@ const messageSchema = require('./messages');
 
 const chatSchema = new Schema({
   users: {
-    type: [Schema.Types.ObjectId, Schema.Types.ObjectId],
+    type: [Schema.Types.ObjectId],
     required: true,
   },
   meta: {

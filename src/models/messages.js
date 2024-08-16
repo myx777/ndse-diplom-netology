@@ -14,7 +14,7 @@ const messageSchema = new Schema({
     },
     readAt: {
       type: Date,
-      default: '',
+      default: null,
     },
   },
   text: {
@@ -22,7 +22,7 @@ const messageSchema = new Schema({
     required: true,
   },
 })
-module.exports = model("Messages", messageSchema);
+module.exports = messageSchema;
 
 
 //Сообщение считается прочитанным, когда поле readAt не пустое.

@@ -33,7 +33,7 @@ app.use(passport.session());
     );
     console.log('MongoDB Connected successfully.');
   } catch (err) {
-    console.log('MongoDB connection error:', err);
+    console.error('MongoDB connection error:', err);
   }
 })();
 
