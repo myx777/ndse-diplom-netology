@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const userRoutes = require('./routes/userRoutes');
 const advertisementRoutes = require('./routes/advertisementRoutes');
-
+const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require('./config/passport');
 const session = require('express-session');
@@ -10,11 +10,14 @@ const session = require('express-session');
 const app = express();
 const server = http.createServer(app);
 
+// Настройка CORS middleware
+app.use(cors());
+
 // Настройка сессий
 const sessionMiddleware = session({
   secret: 'SECRET', // замените на секретное значение
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false, // пустые сессии не сохраняю
   cookie: {
     secure: false, // Кука может передаваться по HTTP, для продакшена надо поменять
   },
@@ -45,4 +48,4 @@ app.use(express.json());
 app.use('/users', userRoutes);
 app.use('/advertisements', advertisementRoutes);
 
-module.exports = { app, server };
+module.exports = { app, server, sessionMiddleware };

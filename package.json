@@ -21,6 +21,7 @@
   "homepage": "https://github.com/myx777/ndse-diplom-netology#readme",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "mongoose": "^8.4.1",
