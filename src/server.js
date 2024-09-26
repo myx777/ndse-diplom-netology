@@ -16,12 +16,13 @@ app.use(cors());
 // Настройка сессий
 const sessionMiddleware = session({
   secret: 'SECRET', // замените на секретное значение
-  resave: false,
+  resave: true,
   saveUninitialized: false, // пустые сессии не сохраняю
   cookie: {
     secure: false, // Кука может передаваться по HTTP, для продакшена надо поменять
   },
 });
+
 app.use(sessionMiddleware);
 
 // Настройка Passport.js
