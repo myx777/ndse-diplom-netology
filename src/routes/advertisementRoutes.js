@@ -1,7 +1,7 @@
 const AdvertisementController = require('../controllers/AdvertisementController');
 const mustAuthenticatedMw = require("../middleware/mustAuthenticatedmw");
 const router = require('express').Router();
-const fileMulter = require("../middleware/file");
+const fileMulter = require("../middleware/multer");
 
 // создание объявлений, принимает все нелбходимые поля по Sсhema
 router.post('/', mustAuthenticatedMw, fileMulter.array('Advertisement_imgs', 10), async (req, res) =>

@@ -2,7 +2,6 @@ const ChatService = require('../services/chatService'); // Убедитесь, �
 
 function setupSocketIoHandlers(io) {
   io.on('connection', socket => {
-    console.log(socket.request.session)
     console.log('User connected!', socket.id);
 
     // Обработка события получения истории сообщений
